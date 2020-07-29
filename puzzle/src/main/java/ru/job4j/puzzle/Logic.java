@@ -35,8 +35,8 @@ public class Logic {
         boolean result = cells.length > 0;
         for (Cell cell : cells) {
             if (findBy(cell) != -1) {
-               result = false;
-               break;
+                result = false;
+                break;
             }
         }
         return result;
@@ -61,8 +61,38 @@ public class Logic {
     }
 
     public boolean isWin() {
-        return Win.check(convert());
+    int[][] table = this.convert();
+    boolean result = false;
+    for (int i = 0; i < table.length; i++) {
+            if (monoHorizontal(table, i) || monoVertical(table, i)) {
+                result = true;
+                break;
+            }
     }
+    return result;
+}
+
+public boolean monoHorizontal(int[][] board,int row) {
+    boolean result = true;
+    for (int index = 0; index < board.length; index++) {
+        if (board[row][index] != board[row][0]) {
+            result = false;
+            break;
+        }
+    }
+    return result;
+}
+
+public boolean monoVertical(int[][] board, int column) {
+    boolean result = true;
+    for (int i = 0; i < board.length; i++) {
+        if (board[i][column] != 1) {
+            result = false;
+            break;
+        }
+    }
+    return result;
+}
 
     public int[][] convert() {
         int[][] table = new int[size][size];
